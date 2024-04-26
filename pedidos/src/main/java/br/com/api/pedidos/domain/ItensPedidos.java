@@ -20,5 +20,6 @@ public class ItensPedidos {
     private Caixa caixa;
 
     private String sku;
-    private int quantidade;
+    private Integer quantidade;
+    private Double peso;
 }

@@ -16,5 +16,5 @@ public class PesoPorSku {
     private Long id;
 
     private String sku;
-    private int pesoEmGramas;
+    private Integer pesoEmGramas;
 }
