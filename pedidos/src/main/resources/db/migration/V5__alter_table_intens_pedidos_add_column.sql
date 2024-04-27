@@ -1,2 +1,0 @@
-ALTER TABLE ItemPedido
-ADD COLUMN peso DOUBLE;

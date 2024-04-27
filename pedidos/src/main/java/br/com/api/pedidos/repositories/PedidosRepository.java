@@ -1,4 +1,4 @@
-package br.com.api.pedidos.repository;
+package br.com.api.pedidos.repositories;
 
 import br.com.api.pedidos.domain.Pedidos;
 import org.springframework.data.jpa.repository.JpaRepository;

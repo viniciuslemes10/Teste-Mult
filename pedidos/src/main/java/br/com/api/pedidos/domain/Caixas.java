@@ -12,15 +12,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Caixa {
+public class Caixas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedidos_id")
     private Pedidos pedido;
 
     @OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
     private List<ItensPedidos> itensPedidos;
+
+    public Caixas(Pedidos pedido) {
+        this.pedido = pedido;
+    }
 }

@@ -18,6 +18,6 @@ public class Pedidos {
     private Long id;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<Caixa> caixas;
+    private List<Caixas> caixas;
 
 }

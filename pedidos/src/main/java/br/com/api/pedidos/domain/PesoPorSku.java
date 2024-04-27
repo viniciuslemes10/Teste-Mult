@@ -3,8 +3,10 @@ package br.com.api.pedidos.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "peso_por_sku")
-@Table(name = "peso_por_sku")
+import java.util.Map;
+
+@Entity(name = "pesoporsku")
+@Table(name = "pesoporsku")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,5 +18,10 @@ public class PesoPorSku {
     private Long id;
 
     private String sku;
-    private Integer pesoEmGramas;
+    private Double pesoEmGramas;
+
+    public PesoPorSku(Map.Entry<String, Double> entry) {
+        this.sku = entry.getKey();
+        this.pesoEmGramas = entry.getValue();
+    }
 }

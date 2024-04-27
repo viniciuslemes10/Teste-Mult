@@ -1,10 +1,11 @@
 package br.com.api.pedidos.domain;
 
+import br.com.api.pedidos.records.ItemDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "itens_pedidos")
-@Table(name = "itens_pedidos")
+@Entity(name = "itenspedidos")
+@Table(name = "itenspedidos")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,9 +18,14 @@ public class ItensPedidos {
 
     @ManyToOne
     @JoinColumn(name = "caixas_id")
-    private Caixa caixa;
+    private Caixas caixa;
 
     private String sku;
     private Integer quantidade;
-    private Double peso;
+
+    public ItensPedidos(ItemDTO itemDTO, Caixas caixa) {
+        this.sku = itemDTO.sku();
+        this.quantidade = itemDTO.qtd();
+        this.caixa = caixa;
+    }
 }
