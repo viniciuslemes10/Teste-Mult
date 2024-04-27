@@ -44,7 +44,7 @@
       </li>
   </ol>
 
-  <p>A aplicação estará disponível em <code>http://localhost:8080/pedidos</code>.</p>
+  <p>A aplicação estará disponível em <code>http://localhost:8080</code>.</p>
 
   <h2>Uso</h2>
 
