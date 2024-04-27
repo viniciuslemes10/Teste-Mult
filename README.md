@@ -26,7 +26,7 @@
           </ul>
       </li>
         <li><strong>Clonar o repositório</strong>:
-            <code>git clone https://github.com/viniciuslemes10/Test-Mult.git</code>
+            <code>git clone https://github.com/viniciuslemes10/Teste-Mult.git</code>
         </li>
       <li><strong>Configuração do Banco de Dados</strong>:
           <ul>
