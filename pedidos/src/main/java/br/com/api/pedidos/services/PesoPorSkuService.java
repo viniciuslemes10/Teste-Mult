@@ -6,6 +6,7 @@ import br.com.api.pedidos.records.PedidoCompletoDTO;
 import br.com.api.pedidos.repositories.PesoPorSkuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ public class PesoPorSkuService {
         }
     }
 
+    @Transactional
     public Map<String, Double> createPesoPorSku(PedidoCompletoDTO dto) {
         Map<String, Double> pesoPorSkuMap = new HashMap<>();
         for (Map.Entry<String, Double> entry : dto.pesoPorSku().entrySet()) {

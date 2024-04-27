@@ -2,10 +2,12 @@ package br.com.api.pedidos.services;
 
 import br.com.api.pedidos.domain.Caixas;
 import br.com.api.pedidos.domain.ItensPedidos;
+import br.com.api.pedidos.exception.ViolationOfArgumentsException;
 import br.com.api.pedidos.records.ItemDTO;
 import br.com.api.pedidos.repositories.ItensPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,17 @@ public class ItensPedidosService {
     public List<ItensPedidos> processarItens(Caixas caixa, List<ItemDTO> itemDTOs) {
         List<ItensPedidos> itensPedidos = new ArrayList<>();
         for (ItemDTO itemDTO : itemDTOs) {
-            itensPedidos = createListItensPedidos(caixa, itemDTO);
+            if ((itemDTO.qtd() != null && itemDTO.qtd() != 0) &&
+                    (itemDTO.sku() != null && !itemDTO.sku().isEmpty())) {
+                itensPedidos = createListItensPedidos(caixa, itemDTO);
+            } else {
+                throw new ViolationOfArgumentsException();
+            }
         }
         return itensPedidos;
     }
 
+    @Transactional
     private List<ItensPedidos> createListItensPedidos(Caixas caixa, ItemDTO itemDTO) {
         List<ItensPedidos> itens = new ArrayList<>();
         ItensPedidos itemPedido = new ItensPedidos(itemDTO, caixa);

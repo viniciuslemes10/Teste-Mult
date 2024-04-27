@@ -8,6 +8,7 @@ import br.com.api.pedidos.records.PedidoCompletoDTO;
 import br.com.api.pedidos.repositories.CaixaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class CaixaService {
         return caixas;
     }
 
+    @Transactional
     private Caixas criarCaixa(Pedidos pedido) {
         Caixas caixa = new Caixas(pedido);
         return repository.save(caixa);

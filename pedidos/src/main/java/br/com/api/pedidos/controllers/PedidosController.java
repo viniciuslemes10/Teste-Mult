@@ -10,8 +10,11 @@ import br.com.api.pedidos.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.*;
 
 @RestController
@@ -33,12 +36,14 @@ public class PedidosController {
     private DetalhesSkuService detalhesSkuService;
 
     @PostMapping
-    public ResponseEntity<String> createPedido(@RequestBody PedidoCompletoDTO dto) {
+    @Transactional
+    public ResponseEntity<String> createPedido(@RequestBody PedidoCompletoDTO dto, UriComponentsBuilder builder) {
         try {
             pesoPorSkuService.createPesoPorSku(dto);
             int totalProdutos = 0;
             double pesoTotal = 0.0;
             List<Caixas> caixas;
+
 
             for (Map.Entry<String, Map<String, List<ItemDTO>>> pedidoEntry : dto.pedidos().entrySet()) {
                 Pedidos pedido = pedidosService.criarPedido();
@@ -54,9 +59,10 @@ public class PedidosController {
             }
 
             String resposta = "Pedido Criado. Total de Produtos: " + totalProdutos + ", Peso Total: " + pesoTotal + " gramas";
-            return ResponseEntity.ok(resposta);
+            URI uri = builder.buildAndExpand().toUri();
+            return ResponseEntity.created(uri).body(resposta);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar pedidos: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar pedidos: " + e.getMessage());
         }
     }
 
