@@ -4,7 +4,7 @@ import br.com.api.pedidos.records.ItemDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "itenspedidos")
+@Entity
 @Table(name = "itenspedidos")
 @Getter
 @Setter

@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.Map;
 
-@Entity(name = "pesoporsku")
+@Entity
 @Table(name = "pesoporsku")
 @Getter
 @Setter

@@ -42,4 +42,8 @@ public class CaixaService {
         Caixas caixa = new Caixas(pedido);
         return repository.save(caixa);
     }
+
+    public List<Object[]> getTotalWeightAndQuantityByCaixa() {
+        return repository.getTotalWeightAndQuantityByCaixa();
+    }
 }

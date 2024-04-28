@@ -68,4 +68,11 @@ public class PedidosService {
         responseList.add(pedidoMap);
     }
 
+    public List<Object[]> findTotalQuantityAndWeightDetails() {
+        return repository.getTotalQuantityAndWeightDetails();
+    }
+
+    public List<Object[]> findTotalWeightAndQuantityByPedido() {
+        return repository.getTotalWeightAndQuantityByPedido();
+    }
 }

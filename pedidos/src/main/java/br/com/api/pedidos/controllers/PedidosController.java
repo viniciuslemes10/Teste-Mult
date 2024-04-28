@@ -81,7 +81,7 @@ public class PedidosController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Map<String, Object>>> getTotalQuantityAndWeightDetails() {
+    public ResponseEntity<List<Map<String, Object>>> getTotalQuantityAndWeightDetailsOfSku() {
         List <ItensPedidos> todosItensPedido = itensPedidosService.getAllItensPedido();
         List<PesoPorSku> todosPesoPorSku = pesoPorSkuService.getAllPesoPorSku();
 
@@ -92,5 +92,52 @@ public class PedidosController {
         List<Map<String, Object>> detailsList = detalhesSkuService.criarDetalhesPorSku(pesoPorSkuMap, quantidadePorSkuMap);
 
         return ResponseEntity.ok(detailsList);
+    }
+
+    @GetMapping("/total-peso-quantidade")
+    public ResponseEntity<Map<String, Object>> getTotalQuantityAndWeightDetails() {
+        List<Object[]> resultList = pedidosService.findTotalQuantityAndWeightDetails();
+
+        if(resultList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Object[] result = resultList.get(0);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("quantidade_total", result[0]);
+        response.put("peso_total_gramas", result[1]);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/total-peso-quantidade-por-caixa")
+    public ResponseEntity<List<Map<String, Object>>> getTotalWeightAndQuantityByCaixa() {
+        return getResponseEntity(caixaService.getTotalWeightAndQuantityByCaixa(),
+                "caixa_id", "quantidade_total", "peso_total_gramas", "skus");
+    }
+
+    @GetMapping("total-peso-quantidade-por-pedido")
+    public ResponseEntity<List<Map<String, Object>>> getTotalWeightAndQuantityByPedido() {
+        return getResponseEntity(pedidosService.findTotalWeightAndQuantityByPedido(),
+                "pedido_id", "peso_total_pedido", "caixas_id", "quantidade_total_itens", "skus_itens");
+    }
+
+    private ResponseEntity<List<Map<String, Object>>> getResponseEntity(List<Object[]> resultList, String... keys) {
+        if (resultList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Map<String, Object>> responseList = new ArrayList<>();
+
+        for (Object[] result : resultList) {
+            Map<String, Object> response = new HashMap<>();
+            for (int i = 0; i < keys.length; i++) {
+                response.put(keys[i], result[i]);
+            }
+            responseList.add(response);
+        }
+
+        return ResponseEntity.ok(responseList);
     }
 }
