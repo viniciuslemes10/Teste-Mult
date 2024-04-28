@@ -50,7 +50,7 @@
 
   <ul>
       <li><strong>Criar um Pedido - Caso aconteça algum erro de digitação no json ele irá alertar e não vai cadastrar o produto. Outro ponto também importante, caso haja 
-      algum erro de colocar o "sku" ou a "qtd" inválidos aquele produto que tiver errado não vai ser cadastrado</strong>:
+      algum erro de colocar o "sku" ou a "qtd" inválidos, aquele produto que tiver errado não vai ser cadastrado</strong>:
         <ul>
             <li><code>POST /pedidos</code></li>
             <li>Corpo da solicitação:
@@ -63,6 +63,8 @@
                       }
                   </pre>
             </li>
+          <li>Ele devolve a quantidade de itens e a soma total do peso em gramas.</li>
+          <br>
         </ul>
         <ul>
             </li>
@@ -87,7 +89,7 @@
           </ul>
 
   <ul>
-           
+      <br>     
   <li><strong>Listar Detalhamento de Pedidos - Ele vai trazer um json contendo o id do pedido, as caixas que pertencem a este pedido, a descrição dos itens como no exemplo são os: peso do item, o sku(nome), quantidade de itens
   em cada caixa e o id do item.</strong>:</li> 
   <li><code>GET /pedidos/detalhes</code>
