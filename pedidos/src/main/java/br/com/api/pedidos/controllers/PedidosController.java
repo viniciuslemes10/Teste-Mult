@@ -7,6 +7,9 @@ import br.com.api.pedidos.domain.PesoPorSku;
 import br.com.api.pedidos.records.ItemDTO;
 import br.com.api.pedidos.records.PedidoCompletoDTO;
 import br.com.api.pedidos.services.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +38,11 @@ public class PedidosController {
     @Autowired
     private DetalhesSkuService detalhesSkuService;
 
+    @Operation(summary = "Criar um novo pedido")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pedido criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Solicitação inválida")
+    })
     @PostMapping
     @Transactional
     public ResponseEntity<String> createPedido(@RequestBody PedidoCompletoDTO dto, UriComponentsBuilder builder) {
@@ -66,6 +74,7 @@ public class PedidosController {
         }
     }
 
+    @Operation(summary = "Obter todos os pedidos com detalhes e pesos por SKU")
     @GetMapping("/detalhes")
     public ResponseEntity<List<Map<String, Object>>> getAllPedidosWithDetailsAndPesosPorSku() {
         List<Object[]> pedidosDetalhados = pedidosService.findAllPedidosWithDetailsAndPesosPorSku();
@@ -80,6 +89,7 @@ public class PedidosController {
         return ResponseEntity.ok(responseList);
     }
 
+    @Operation(summary = "Obter a quantidade total e o peso total de todos os SKUs")
     @GetMapping
     public ResponseEntity<List<Map<String, Object>>> getTotalQuantityAndWeightDetailsOfSku() {
         List <ItensPedidos> todosItensPedido = itensPedidosService.getAllItensPedido();
@@ -94,6 +104,7 @@ public class PedidosController {
         return ResponseEntity.ok(detailsList);
     }
 
+    @Operation(summary = "Obter a quantidade total e o peso total de todos os pedidos")
     @GetMapping("/total-peso-quantidade")
     public ResponseEntity<Map<String, Object>> getTotalQuantityAndWeightDetails() {
         List<Object[]> resultList = pedidosService.findTotalQuantityAndWeightDetails();
@@ -111,12 +122,14 @@ public class PedidosController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obter o peso total e a quantidade total por caixa")
     @GetMapping("/total-peso-quantidade-por-caixa")
     public ResponseEntity<List<Map<String, Object>>> getTotalWeightAndQuantityByCaixa() {
         return getResponseEntity(caixaService.getTotalWeightAndQuantityByCaixa(),
                 "caixa_id", "quantidade_total", "peso_total_gramas", "skus");
     }
 
+    @Operation(summary = "Obter o peso total e a quantidade total por pedido")
     @GetMapping("total-peso-quantidade-por-pedido")
     public ResponseEntity<List<Map<String, Object>>> getTotalWeightAndQuantityByPedido() {
         return getResponseEntity(pedidosService.findTotalWeightAndQuantityByPedido(),
