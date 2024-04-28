@@ -4,7 +4,6 @@ import br.com.api.pedidos.domain.Pedidos;
 import br.com.api.pedidos.repositories.PedidosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ public class PedidosService {
         return listDetailsPedidos;
     }
 
-    @Transactional
     public Pedidos criarPedido() {
         Pedidos pedido = new Pedidos();
         return repository.save(pedido);

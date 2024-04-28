@@ -4,6 +4,7 @@ import br.com.api.pedidos.domain.Caixas;
 import br.com.api.pedidos.domain.ItensPedidos;
 import br.com.api.pedidos.domain.Pedidos;
 import br.com.api.pedidos.domain.PesoPorSku;
+import br.com.api.pedidos.exception.ViolationOfArgumentsException;
 import br.com.api.pedidos.records.ItemDTO;
 import br.com.api.pedidos.records.PedidoCompletoDTO;
 import br.com.api.pedidos.services.*;
@@ -47,31 +48,48 @@ public class PedidosController {
     @Transactional
     public ResponseEntity<String> createPedido(@RequestBody PedidoCompletoDTO dto, UriComponentsBuilder builder) {
         try {
+            validarItensPedido(dto);
             pesoPorSkuService.createPesoPorSku(dto);
             int totalProdutos = 0;
             double pesoTotal = 0.0;
             List<Caixas> caixas;
 
-
             for (Map.Entry<String, Map<String, List<ItemDTO>>> pedidoEntry : dto.pedidos().entrySet()) {
-                Pedidos pedido = pedidosService.criarPedido();
-                caixas = caixaService.processarCaixas(pedido, pedidoEntry.getValue(), dto);
-                pedido.setCaixas(caixas);
+                if (!pedidoEntry.getValue().isEmpty()) {
+                    Pedidos pedido = pedidosService.criarPedido();
+                    caixas = caixaService.processarCaixas(pedido, pedidoEntry.getValue(), dto);
+                    pedido.setCaixas(caixas);
 
-                for (Map.Entry<String, List<ItemDTO>> caixaEntry : pedidoEntry.getValue().entrySet()) {
-                    for (ItemDTO itemDTO : caixaEntry.getValue()) {
-                        totalProdutos += pesoPorSkuService.calcularTotalDeProdutos(itemDTO);
-                        pesoTotal += pesoPorSkuService.calcularTotalDePeso(dto, itemDTO, 0);
+                    for (Map.Entry<String, List<ItemDTO>> caixaEntry : pedidoEntry.getValue().entrySet()) {
+                        if (!caixaEntry.getValue().isEmpty()) {
+                            for (ItemDTO itemDTO : caixaEntry.getValue()) {
+                                totalProdutos += pesoPorSkuService.calcularTotalDeProdutos(itemDTO);
+                                pesoTotal += pesoPorSkuService.calcularTotalDePeso(dto, itemDTO, 0);
+                            }
+                        }
                     }
                 }
             }
-
             String resposta = "Pedido Criado. Total de Produtos: " + totalProdutos + ", Peso Total: " + pesoTotal + " gramas";
             URI uri = builder.buildAndExpand().toUri();
             return ResponseEntity.created(uri).body(resposta);
-        } catch (Exception e) {
+        } catch (ViolationOfArgumentsException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar pedidos: " + e.getMessage());
         }
+    }
+
+    private void validarItensPedido(PedidoCompletoDTO dto) {
+        for (Map.Entry<String, Map<String, List<ItemDTO>>> pedidoEntry : dto.pedidos().entrySet()) {
+            for (Map.Entry<String, List<ItemDTO>> caixaEntry : pedidoEntry.getValue().entrySet()) {
+                for (ItemDTO itemDTO : caixaEntry.getValue()) {
+                    if ((itemDTO.qtd() == null || itemDTO.qtd() == 0) ||
+                            (itemDTO.sku() == null || itemDTO.sku().isEmpty())) {
+                        throw new ViolationOfArgumentsException();
+                    }
+                }
+            }
+        }
+
     }
 
     @Operation(summary = "Obter todos os pedidos com detalhes e pesos por SKU")
