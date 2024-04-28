@@ -8,12 +8,50 @@
 
   <p>O Sistema de Gerenciamento de Pedidos permite aos usuários criar e visualizar, além de gerenciar os itens associados a cada pedido.</p>
 
-  <p><strong>Principais funcionalidades:</strong></p>
-  <ul>
-      <li>Ao criar um Pedido ele vai devolver na resposta a quantidade total de itens naquele json que você enviou e o peso total em gramas de todos os item juntos.</li>
-      <li>Criar pedidos com informações detalhadas, as caixas, os itens que pertencem a caixa e os pesos de acordo com cada item.</li>
-      <li>Visualizar detalhes de pedidos, incluindo informações sobre os itens associados e as caixas associadas.</li>
-  </ul>
+<h2>Funcionalidades do Sistema de Pedidos</h2>
+    
+  <h3>Ao criar um Pedido:</h3>
+    <p>Quando um pedido é criado, a resposta incluirá:</p>
+    <ul>
+        <li>A quantidade total de itens contidos no JSON enviado.</li>
+        <li>O peso total em gramas de todos os itens juntos.</li>
+    </ul>
+
+  <h3>Criar pedidos com informações detalhadas:</h3>
+    <p>É possível criar pedidos fornecendo informações detalhadas, incluindo:</p>
+    <ul>
+        <li>As caixas associadas ao pedido.</li>
+        <li>Os itens que pertencem a cada caixa.</li>
+        <li>Os pesos de cada item, conforme especificado.</li>
+    </ul>
+
+  <h3>Visualizar detalhes de pedidos:</h3>
+    <p>Os detalhes de cada pedido podem ser visualizados, incluindo:</p>
+    <ul>
+        <li>Informações sobre os itens associados a esse pedido.</li>
+        <li>As caixas associadas ao pedido.</li>
+    </ul>
+
+  <h3>Visualizar o peso total e quantidade total de itens no banco de dados:</h3>
+    <p>É possível visualizar:</p>
+    <ul>
+        <li>O peso total de todos os itens armazenados no banco de dados.</li>
+        <li>A quantidade total de itens armazenados no banco de dados.</li>
+    </ul>
+
+  <h3>Visualizar o peso total e quantidade de itens por caixa:</h3>
+    <p>Os usuários podem ver:</p>
+    <ul>
+        <li>O peso total e a quantidade de itens em cada caixa.</li>
+        <li>Isso permite uma análise mais detalhada da distribuição de peso e itens em cada caixa.</li>
+    </ul>
+
+  <h3>Visualizar o peso total e quantidade de itens por pedido:</h3>
+    <p>Os usuários podem:</p>
+    <ul>
+        <li>Obter o peso total e a quantidade de itens associados a cada pedido.</li>
+        <li>Isso fornece uma visão específica do conteúdo de cada pedido em termos de peso e quantidade de itens.</li>
+    </ul>
 
   <h2>Instalação e Configuração</h2>
 
