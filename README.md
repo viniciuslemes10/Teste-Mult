@@ -103,7 +103,7 @@
 
   <ul>
       <li><strong>Criar um Pedido - Caso aconteça algum erro de digitação no json ele irá alertar e não vai cadastrar o produto. Outro ponto também importante, caso haja 
-      algum erro de colocar o "sku" ou a "qtd" inválidos, aquele produto que tiver errado não vai ser cadastrado</strong>:
+      algum erro de colocar o "sku" ou a "qtd" inválidos, nenhum item vai ser cadastrado</strong>:
         <ul>
             <li><code>POST /pedidos</code></li>
             <li>Corpo da solicitação:
