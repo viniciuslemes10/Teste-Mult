@@ -236,7 +236,7 @@
          </pre>
      </li>
      <br>
-    <li><strong>Total de Peso e Quantidade por Pedido - Neste endpoint mostra o id de cada pedido, a quantidade de itens que contém no pedido, os nomes dos skus que estão naquela pedido, o peso daquela pedido em gramas e os ids das caixas que pertencem aquele pedido</strong>:</li> 
+    <li><strong>Total de Peso e Quantidade por Pedido - Neste endpoint mostra o id de cada pedido, a quantidade de itens que contém no pedido, os nomes dos skus que estão naquele pedido, o peso daquele pedido em gramas e os ids das caixas que pertencem aquele pedido</strong>:</li> 
   
   <li><code>GET /pedidos/total-peso-quantidade-por-pedido</code>
      <li>Corpo da solicitação:
