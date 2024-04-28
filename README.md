@@ -46,6 +46,21 @@
 
   <p>A aplicação estará disponível em <code>http://localhost:8080</code>.</p>
 
+<h2>Testando a API com Swagger</h2>
+
+<p>Para testar os endpoints da API, você pode usar o Swagger, uma ferramenta de documentação interativa que permite explorar e testar os endpoints diretamente no navegador.</p>
+
+  <h3>Passos para acessar o Swagger:</h3>
+
+  <ol>
+        <li>Certifique-se de que o servidor da API está em execução.</li>
+        <li>Abra um navegador da web e vá para a URL onde a API está hospedada. Por exemplo: <code>http://localhost:8080/swagger-ui.html</code>.</li>
+        <li>Isso abrirá a interface do Swagger, onde você verá uma lista de todos os endpoints da API documentados.</li>
+        <li>Clique em qualquer endpoint para expandi-lo e ver detalhes sobre os parâmetros de entrada, os códigos de resposta e outros detalhes relevantes.</li>
+        <li>Para testar um endpoint, clique no botão "Try it out", preencha os parâmetros necessários e clique em "Execute". Você verá a resposta da API diretamente na interface do Swagger.</li>
+        <li>Explore outros endpoints da mesma maneira para entender melhor como a API funciona e testar diferentes funcionalidades.</li>
+  </ol>
+
   <h2>Uso</h2>
 
   <ul>
