@@ -214,7 +214,7 @@
   <br>
   <li><strong>Total de Peso e Quantidade por Caixa - Neste endpoint mostra o id de cada caixa, a quantidade de itens que contém na caixa, os nomes dos skus que estão naquela caixa e o peso daquela caixa em gramas</strong>:</li> 
   
-  <li><code>GET /pedidos/pedidos/total-peso-quantidade-por-caixa</code>
+  <li><code>GET /pedidos/total-peso-quantidade-por-caixa</code>
      <li>Corpo da solicitação:
        <br>
        <br>
